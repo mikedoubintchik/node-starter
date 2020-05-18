@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:prettier/recommended'],
+  plugins: ['security'],
+  extends: [
+    'airbnb',
+    'plugin:prettier/recommended',
+    'plugin:security/recommended'
+  ],
   env: {
     browser: true,
     commonjs: true,
@@ -20,9 +25,9 @@ module.exports = {
         ignoreUrls: true,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true,
+        ignoreRegExpLiterals: true
       }
-    ]
-    "semi": [2, "always"]
+    ],
+    semi: [2, 'always']
   }
 };
