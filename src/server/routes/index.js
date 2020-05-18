@@ -1,6 +1,6 @@
 'use strict';
 
-import config from '../config';
+import config from '../../config';
 import apiRoute from './apis';
 import errorRoute from './error';
 import healthRoute from './health';

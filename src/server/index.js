@@ -1,42 +1,9 @@
-import compression from 'compression';
-import express from 'express';
-import rateLimit from 'express-rate-limit';
 import fs from 'fs';
 import http from 'http';
-// import createError from 'http-errors';
 import https from 'https';
-import morgan from 'morgan';
-import swaggerUi from 'swagger-ui-express';
-import config from './config';
+import app from '../app';
+import config from '../config';
 import sequelize from './db';
-import routes from './routes';
-import swaggerDocument from './swagger.json';
-// import createError from 'http-errors';
-const debug = require('debug')('test:server');
-
-const server = express();
-
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); // swagger documentation
-server.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })); // rate limiter
-server.use(compression()); // GZIP compression
-server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
-server.use(morgan('dev')); // logger
-// server.use((req, res, next) => next(createError(404))); // catch 404 and forward to error handler
-
-// // error handler
-// server.use((err, req, res, next) => {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = config.env === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
-// setup routes
-routes(server);
 
 // Get our key and cert
 const key = fs.readFileSync('/certs/cert.key');
@@ -49,14 +16,14 @@ sequelize
     console.debug('connection to db successful');
     if (config.env === 'development')
       http
-        .createServer(server)
+        .createServer(app)
         .listen(normalizePort(config.server.http_port), () =>
           console.debug('http server started')
         )
         .on('error', onError);
     else
       https
-        .createServer({ key, cert }, server)
+        .createServer({ key, cert }, app)
         .listen(normalizePort(config.server.https_port), () =>
           console.debug('https server started')
         )
@@ -95,5 +62,3 @@ const onError = (error) => {
       throw error;
   }
 };
-
-export default server;

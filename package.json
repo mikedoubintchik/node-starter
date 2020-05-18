@@ -7,7 +7,7 @@
     "node": "14.2"
   },
   "scripts": {
-    "start": "babel-watch src/server.js",
+    "start": "babel-watch src/server/index.js",
     "build": "rimraf dist/ && babel src --out-dir dist --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "serve": "node dist/app.js",
     "mocha": "mocha --compilers js:babel-register",
