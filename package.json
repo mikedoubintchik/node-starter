@@ -1,0 +1,53 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "engines": {
+    "node": "14.2"
+  },
+  "scripts": {
+    "start": "babel-watch src/server.js",
+    "build": "rimraf dist/ && babel src --out-dir dist --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "serve": "node dist/app.js",
+    "mocha": "mocha --compilers js:babel-register",
+    "test": "mocha --compilers js:babel-register --recursive ./test/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "1.7.4",
+    "dotenv": "8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "5.1.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "https": "1.0.0",
+    "joi": "14.3.1",
+    "knex": "0.21.1",
+    "nodemon": "2.0.4",
+    "pg": "8.2.1",
+    "pg-hstore": "2.3.3",
+    "sequelize": "5.21.9",
+    "supertest": "4.0.2",
+    "swagger-ui-express": "4.1.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.6",
+    "@babel/node": "7.8.7",
+    "@babel/preset-env": "7.9.6",
+    "@babel/preset-es2015": "7.0.0-beta.53",
+    "babel-eslint": "10.1.0",
+    "babel-watch": "7.0.0",
+    "eslint": "7.0.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.3",
+    "prettier": "2.0.5",
+    "rimraf": "3.0.2"
+  }
+}

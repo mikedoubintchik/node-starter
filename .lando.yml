@@ -1,0 +1,12 @@
+name: node
+services:
+  node:
+    type: node
+    ssl: true
+    command: npm start
+    port: 80:80
+  postgres:
+    type: postgres
+    portforward: 5432
+    creds:
+      database: database

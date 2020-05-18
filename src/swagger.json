@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "APIs Document",
+    "description": "your description here",
+    "termsOfService": "",
+    "contact": {
+      "name": "Mike Doubintchik",
+      "email": "mike.doubintchik@gmail.com",
+      "url": "https://allurewebsolutions.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost/api",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/users/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": "true",
+          "description": "id of the user",
+          "type": "string"
+        },
+        {
+          "name": "authorization",
+          "description": "Access token to authorize the user",
+          "in": "header",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "tags": ["Users"],
+        "summary": "API Endpoint to find single User",
+        "description": "Find user from the database",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "API Endpoint to delete the User",
+        "description": "Delete user from the database",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User  deleted",
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "API Endpoint for updating User",
+        "description": "Update the existing User in database",
+        "parameters": [
+          {
+            "name": "user",
+            "description": "User params to update the user",
+            "in": "body",
+            "schema": {
+              "$ref": "#definitions/UpdateUser"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["email"],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateUser": {
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
