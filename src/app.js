@@ -14,7 +14,7 @@ const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); // swagger documentation
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })); // rate limiter
 app.use(compression()); // GZIP compression
-app.use(express.json());
+app.use(express.json({ limit: '300kb' })); // body-parser body size limit of 300kb
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev')); // logger
 app.use(frameguard({ action: 'sameorigin' })); // x-frames header
