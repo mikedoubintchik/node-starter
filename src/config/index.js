@@ -1,7 +1,5 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import joi from 'joi';
-
-dotenv.config();
 
 const envVarsSchema = joi
   .object({
