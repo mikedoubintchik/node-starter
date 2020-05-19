@@ -1,9 +1,9 @@
 'use strict';
 
 import { Router } from 'express';
-import messagesController from '../../controllers/apis/message';
-import sessionController from '../../controllers/apis/session';
-import userController from '../../controllers/apis/user';
+import messagesController from '../../controllers/apis/v1/message';
+import sessionController from '../../controllers/apis/v1/session';
+import userController from '../../controllers/apis/v1/user';
 
 let router = Router();
 

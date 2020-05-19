@@ -4,16 +4,13 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   const paginateSort = ({ offset, limit, orderBy, order }) => {
-    const page = offset * limit;
-    const pageSize = limit;
-    let sort = ['id', 'ASC'];
-    if (orderBy && order) sort = [orderBy, order];
+    let query = {};
 
-    return {
-      offset: page,
-      limit: pageSize,
-      order: [sort]
-    };
+    if (offset && limit) query.offset = offset * limit;
+    if (limit) query.limit = limit;
+    if (orderBy && order) query.order = [[orderBy, order]];
+
+    return query;
   };
 
   const users = await req.context.models.User.findAll({
