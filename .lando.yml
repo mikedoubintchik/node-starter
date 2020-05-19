@@ -3,6 +3,8 @@ services:
   node:
     type: node
     ssl: true
+    build:
+      - cp .env.example .env
     command: npm start
     port: 80:80
   postgres:
