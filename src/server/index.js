@@ -4,16 +4,22 @@ import https from 'https';
 import app from '../app';
 import config from '../config';
 import sequelize from './db';
+import models from './models';
 
 // Get our key and cert
 const key = fs.readFileSync('/certs/cert.key');
 const cert = fs.readFileSync('/certs/cert.crt');
 
 // Create our servers
+const eraseDatabaseOnSync = false;
+
 sequelize
-  .authenticate()
+  .sync({ force: eraseDatabaseOnSync })
   .then(() => {
-    console.debug('connection to db successful');
+    console.debug('connection to db synced');
+
+    if (eraseDatabaseOnSync) createUsersWithMessages();
+
     if (config.env === 'development')
       http
         .createServer(app)
@@ -30,6 +36,40 @@ sequelize
         .on('error', onError);
   })
   .catch((error) => console.error('connection to db failed: \n', error));
+
+// Seed database
+const createUsersWithMessages = async () => {
+  await models.User.create(
+    {
+      username: 'rwieruch',
+      messages: [
+        {
+          text: 'Published the Road to learn React'
+        }
+      ]
+    },
+    {
+      include: [models.Message]
+    }
+  );
+
+  await models.User.create(
+    {
+      username: 'ddavids',
+      messages: [
+        {
+          text: 'Happy to release ...'
+        },
+        {
+          text: 'Published a complete ...'
+        }
+      ]
+    },
+    {
+      include: [models.Message]
+    }
+  );
+};
 
 // Normalize a port into a number, string, or false.
 const normalizePort = (val) => {

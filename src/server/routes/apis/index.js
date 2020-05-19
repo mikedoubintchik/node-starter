@@ -1,9 +1,9 @@
 'use strict';
 
-import express from 'express';
+import { Router } from 'express';
 import v1ApiController from './v1';
 
-const router = express.Router();
+let router = Router();
 
 router.use('/v1', v1ApiController);
 
