@@ -3,7 +3,22 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const users = await req.context.models.User.findAll();
+  const paginateSort = ({ offset, limit, orderBy, order }) => {
+    const page = offset * limit;
+    const pageSize = limit;
+    let sort = ['id', 'ASC'];
+    if (orderBy && order) sort = [orderBy, order];
+
+    return {
+      offset: page,
+      limit: pageSize,
+      order: [sort]
+    };
+  };
+
+  const users = await req.context.models.User.findAll({
+    ...paginateSort({ ...req.query })
+  });
   return res.send(users);
 });
 

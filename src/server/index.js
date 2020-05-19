@@ -18,7 +18,7 @@ sequelize
   .then(() => {
     console.debug('connection to db synced');
 
-    if (eraseDatabaseOnSync) createUsersWithMessages();
+    if (eraseDatabaseOnSync) createUsersWithMessages(100);
 
     if (config.env === 'development')
       http
@@ -38,37 +38,22 @@ sequelize
   .catch((error) => console.error('connection to db failed: \n', error));
 
 // Seed database
-const createUsersWithMessages = async () => {
-  await models.User.create(
-    {
-      username: 'rwieruch',
-      messages: [
-        {
-          text: 'Published the Road to learn React'
-        }
-      ]
-    },
-    {
-      include: [models.Message]
-    }
-  );
-
-  await models.User.create(
-    {
-      username: 'ddavids',
-      messages: [
-        {
-          text: 'Happy to release ...'
-        },
-        {
-          text: 'Published a complete ...'
-        }
-      ]
-    },
-    {
-      include: [models.Message]
-    }
-  );
+const createUsersWithMessages = async (numberOfUsers) => {
+  for (let i = 1; i <= numberOfUsers; i++) {
+    models.User.create(
+      {
+        email: `mike${i}@mike.com`,
+        messages: [
+          {
+            text: 'Mike is cool'
+          }
+        ]
+      },
+      {
+        include: [models.Message]
+      }
+    );
+  }
 };
 
 // Normalize a port into a number, string, or false.

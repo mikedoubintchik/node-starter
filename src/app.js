@@ -12,7 +12,6 @@ import models from './server/models';
 import routes from './server/routes';
 import swaggerDocument from './swagger.json';
 
-const debug = require('debug')('test:server');
 const app = express();
 
 app.use(cors()); // cors
@@ -29,7 +28,7 @@ app.use(xssFilter()); // xss header
 app.use(async (req, res, next) => {
   req.context = {
     models,
-    me: await models.User.findByLogin('rwieruch')
+    me: await models.User.findByLogin('mike@mike.com')
   };
   next();
 });
