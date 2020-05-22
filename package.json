@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "engines": {
-    "node": "14.2"
+    "node": "13.14.0"
   },
   "scripts": {
     "start": "babel-watch src/server/index.js",

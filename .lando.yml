@@ -1,10 +1,11 @@
 name: node
 services:
   node:
-    type: node
+    type: node:13
     ssl: true
     build:
       - cp .env.example .env
+      - npm i
     command: npm start
     port: 80:80
   postgres:
